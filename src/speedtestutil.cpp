@@ -2018,6 +2018,7 @@ void explode(const std::string &link, bool sslibev, bool ssrlibev, const std::st
         explodeTrojan(link, custom_port, node);
     else if(isLink(link))
         explodeHTTPSub(link, custom_port, node);
+    node.originUrl = link;
 }
 
 void explodeSub(std::string sub, bool sslibev, bool ssrlibev, const std::string &custom_port, std::vector<nodeInfo> &nodes)

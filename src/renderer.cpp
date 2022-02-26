@@ -225,6 +225,12 @@ bool comparer(nodeInfo &a, nodeInfo &b)
     }
 }
 
+void sortNodes(std::vector<nodeInfo> &nodes,std::string export_sort_method)
+{
+    export_sort_method_render = export_sort_method;
+    std::sort(nodes.begin(), nodes.end(), comparer); //sort by export_sort_method
+}
+
 void getColor(color lc, color rc, float level, color *finalcolor)
 {
     finalcolor->red = (int)((float)lc.red * (1.0 - level) + (float)rc.red * level);

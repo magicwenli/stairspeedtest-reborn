@@ -34,6 +34,7 @@ struct nodeInfo
     FutureHelper<geoIPInfo> outboundGeoIP;
     std::string testFile;
     std::string ulTarget;
+    std::string originUrl;
     FutureHelper<std::string> natType {"Unknown"};
 };
 

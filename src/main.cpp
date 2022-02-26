@@ -555,6 +555,10 @@ void exportHTML()
 
 void saveResult(std::vector<nodeInfo> &nodes)
 {
+    sortNodes(nodes,"speed");
+    std::ofstream fout;
+    fout.open("results//sub.txt",std::ios::app);
+
     INIReader ini;
     std::string data;
 
@@ -578,9 +582,11 @@ void saveResult(std::vector<nodeInfo> &nodes)
         ini.SetArray("RawPing", ",", x.rawPing);
         ini.SetArray("RawSitePing", ",", x.rawSitePing);
         ini.SetArray("RawSpeed", ",", x.rawSpeed);
+        fout<< x.originUrl << std::endl;
     }
-
+    writeLog(LOG_TYPE_INFO, "save result: " + resultPath);
     ini.ToFile(resultPath);
+    fout.close();
 }
 
 std::string removeEmoji(const std::string &orig_remark)
