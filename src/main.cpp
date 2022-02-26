@@ -582,9 +582,11 @@ void saveResult(std::vector<nodeInfo> &nodes)
         ini.SetArray("RawPing", ",", x.rawPing);
         ini.SetArray("RawSitePing", ",", x.rawSitePing);
         ini.SetArray("RawSpeed", ",", x.rawSpeed);
-        fout<< x.originUrl << std::endl;
+        if(x.avgSpeed!="N/A")
+        {
+            fout<< x.originUrl << std::endl;
+        }
     }
-    writeLog(LOG_TYPE_INFO, "save result: " + resultPath);
     ini.ToFile(resultPath);
     fout.close();
 }

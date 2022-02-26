@@ -73,7 +73,7 @@ void resultInit()
 {
     curtime = getTime(1);
     resultPath = "results" PATH_SLASH + curtime + ".log";
-    subSavePath = "results" PATH_SLASH + "subscribes.txt";
+    subSavePath = "results//subscribes.txt";
 }
 
 void writeLog(int type, std::string content, int level)
