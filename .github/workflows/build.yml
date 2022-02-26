@@ -34,10 +34,11 @@ jobs:
         name: stairspeedtest_reborn_linux64
         path: stairspeedtest/
     - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          stairspeedtest/*
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        name: stairspeedtest_reborn_linux64
+        path: stairspeedtest/
     
 
   macos_build:
@@ -56,10 +57,11 @@ jobs:
         name: stairspeedtest_reborn_darwin64
         path: stairspeedtest/
     - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          stairspeedtest/*
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        name: stairspeedtest_reborn_linux64
+        path: stairspeedtest/
         
   # windows64_build:
   #   name: Windows x86_64 Build
