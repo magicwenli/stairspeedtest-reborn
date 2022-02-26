@@ -557,7 +557,7 @@ void saveResult(std::vector<nodeInfo> &nodes)
 {
     sortNodes(nodes,"speed");
     std::ofstream fout;
-    fout.open("results//sub.txt",std::ios::app);
+    fout.open(subSavePath, std::ios::app);
 
     INIReader ini;
     std::string data;
