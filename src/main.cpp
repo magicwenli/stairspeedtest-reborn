@@ -555,7 +555,7 @@ void exportHTML()
 
 void saveResult(std::vector<nodeInfo> &nodes)
 {
-    sortNodes(nodes,"speed");
+    sortNodes(nodes,"rspeed");
     std::ofstream fout;
     fout.open(subSavePath, std::ios::app);
 
