@@ -6,19 +6,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # linux32_build:
-  #   name: Linux x86 Build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Build
-  #     run: |
-  #       docker run -v $GITHUB_WORKSPACE:/root/workdir -e TRAVIS_BRANCH=action -e TRAVIS_TAG=action multiarch/alpine:x86-latest-stable /bin/sh -c "apk add bash git && cd /root/workdir && bash scripts/build.alpine.release.sh"
-  #   - name: Upload
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: stairspeedtest_reborn_linux32
-  #       path: stairspeedtest/
+  linux32_build:
+    name: Linux x86 Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: |
+        docker run -v $GITHUB_WORKSPACE:/root/workdir -e TRAVIS_BRANCH=action -e TRAVIS_TAG=action multiarch/alpine:x86-latest-stable /bin/sh -c "apk add bash git && cd /root/workdir && bash scripts/build.alpine.release.sh"
+        tar -czvf stairspeedtest_reborn_linux32.tar.gz stairspeedtest
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: stairspeedtest_reborn_linux32
+        path: stairspeedtest/
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: stairspeedtest_reborn_linux32.tar.gz
 
   linux64_build:
     name: Linux x86_64 Build
@@ -28,6 +34,7 @@ jobs:
     - name: Build
       run: |
         docker run -v $GITHUB_WORKSPACE:/root/workdir -e TRAVIS_BRANCH=action -e TRAVIS_TAG=action multiarch/alpine:amd64-latest-stable /bin/sh -c "apk add bash git && cd /root/workdir && bash scripts/build.alpine.release.sh"
+        tar -czvf stairspeedtest_reborn_linux64.tar.gz stairspeedtest
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
@@ -37,8 +44,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        name: stairspeedtest_reborn_linux64
-        path: stairspeedtest/
+        files: stairspeedtest_reborn_linux64.tar.gz
     
 
   macos_build:
@@ -51,6 +57,7 @@ jobs:
         bash scripts/build.macos.release.sh
         bash scripts/build.macos.clients.sh
         mv base stairspeedtest
+        tar -czvf stairspeedtest_reborn_darwin64.tar.gz stairspeedtest
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
@@ -60,8 +67,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        name: stairspeedtest_reborn_linux64
-        path: stairspeedtest/
+        files: stairspeedtest_reborn_darwin64.tar.gz
         
   # windows64_build:
   #   name: Windows x86_64 Build
